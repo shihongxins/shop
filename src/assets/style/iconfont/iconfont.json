@@ -1,0 +1,58 @@
+{
+  "id": "2497942",
+  "name": "shop",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "558736",
+      "name": "bag",
+      "font_class": "bag",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "9859445",
+      "name": "location",
+      "font_class": "location",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "10861480",
+      "name": "bell",
+      "font_class": "bell",
+      "unicode": "e69f",
+      "unicode_decimal": 59039
+    },
+    {
+      "icon_id": "9290611",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "10416985",
+      "name": "my",
+      "font_class": "my",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "20038502",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "20960099",
+      "name": "order",
+      "font_class": "order",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}

@@ -4,8 +4,7 @@ import router from './router'
 import store from './store'
 
 import 'normalize.css'
-import './assets/style/base.scss'
-import './assets/style/border.css'
+import './assets/style/index.scss'
 
 import fastclick from 'fastclick'
 fastclick.attach(document.body)
