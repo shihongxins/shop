@@ -1,4 +1,4 @@
-# jingdong
+# shop
 
 ## Project setup
 ```
