@@ -1,67 +1,101 @@
 <template>
   <div class="wrapper">
     <img class="wrapper__img" src="http://www.dell-lee.com/imgs/vue3/user.png" alt="">
-    <form action="" class="wrapper__form">
+    <form action="" class="wrapper__form" autocomplete="off">
       <div class="wrapper__form__input">
         <input
           type="text"
           name="username"
           placeholder="请输入手机号"
-          v-model="data.username">
+          autocomplete="off"
+          v-model="username">
       </div>
       <div class="wrapper__form__input">
         <input
           type="password"
           name="password"
           placeholder="请输入密码"
-          v-model="data.password">
+          autocomplete="new-password"
+          v-model="password">
       </div>
       <div class="wrapper__form__button">
         <button class="button-login" type="button" @click="handleLogin">登录</button>
       </div>
     </form>
     <div class="wrapper__link">
-      <a class="wrapper__link-register" @click.prevent="handleGoRegister">立即注册</a>
+      <a class="wrapper__link-register" @click.prevent="handleJumpRegister">立即注册</a>
       <a class="wrapper__link-findpwd">找回密码</a>
     </div>
   </div>
+  <Toast />
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { post } from '../../utils/request.js'
+import Toast, { showToast } from '../../components/Toast.vue'
+
+// 登录业务逻辑
+const useLoginEffect = () => {
+  const router = useRouter()
+  const data = reactive({
+    username: '',
+    password: ''
+  })
+  const handleLogin = async () => {
+    if (data.username.trim() === '' || data.password.trim() === '') {
+      showToast('请输入完整登录信息')
+      return
+    }
+    try {
+      showToast('... ...')
+      const result = await post('/api/user/login', data, { headers: { 'content-type': 'application/json' } })
+      console.log(result)
+      if (result.errno === 0) {
+        showToast('登录成功')
+        localStorage.setItem('isAuthenticated', 'true')
+        router.push({ name: 'Home' })
+      } else {
+        showToast('登录失败' + JSON.stringify(result))
+      }
+    } catch (e) {
+      console.log(e)
+      showToast(`登录出错，${e.message}`)
+    }
+  }
+
+  const { username, password } = toRefs(data)
+  return {
+    username, password, handleLogin
+  }
+}
+
+// 跳转业务逻辑
+const useJumpRegisterEffect = () => {
+  const router = useRouter()
+  const handleJumpRegister = () => {
+    router.push({ name: 'Register' })
+  }
+
+  return { handleJumpRegister }
+}
 
 export default {
   name: 'Login',
+  components: {
+    Toast
+  },
+  // 理解 Composition API 中的 Setup 函数，职责仅仅是业务流程的调度
+  // 而具体业务要看对应的方法，减少了业务与组件的耦合
   setup () {
-    const data = reactive({
-      username: '',
-      password: ''
-    })
-    const router = useRouter()
-    const handleLogin = async () => {
-      try {
-        const result = await post('/api/user/login', data, { headers: { 'content-type': 'application/json' } })
-        console.log(result)
-        if (result.errno === 0) {
-          localStorage.setItem('isAuthenticated', 'true')
-          router.push({ name: 'Home' })
-        } else {
-          alert('登录失败！')
-        }
-      } catch (err) {
-        console.log(err)
-        alert(`登录出错！${err.message}`)
-      }
-    }
-    const handleGoRegister = () => {
-      router.push({ name: 'Register' })
-    }
+    const { username, password, handleLogin } = useLoginEffect()
+    const { handleJumpRegister } = useJumpRegisterEffect()
     return {
-      data,
+      username,
+      password,
       handleLogin,
-      handleGoRegister
+      handleJumpRegister
     }
   }
 }

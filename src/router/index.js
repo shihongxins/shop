@@ -11,6 +11,19 @@ const routes = [
     alias: '/home'
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    beforeEnter: (to, from, next) => {
+      const isAuthenticated = localStorage.getItem('isAuthenticated')
+      if (isAuthenticated) {
+        next({ name: 'Home' })
+      } else {
+        next()
+      }
+    }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login,
@@ -24,16 +37,11 @@ const routes = [
     }
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: Register,
+    path: '/logout',
+    name: 'Logout',
     beforeEnter: (to, from, next) => {
-      const isAuthenticated = localStorage.getItem('isAuthenticated')
-      if (isAuthenticated) {
-        next({ name: 'Home' })
-      } else {
-        next()
-      }
+      localStorage.removeItem('isAuthenticated')
+      next({ name: 'Login' })
     }
   }
 ]

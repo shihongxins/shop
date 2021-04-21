@@ -1,41 +1,112 @@
 <template>
   <div class="wrapper">
     <img class="wrapper__img" src="http://www.dell-lee.com/imgs/vue3/user.png" alt="">
-    <form action="" class="wrapper__form">
+    <form action="" class="wrapper__form" autocomplete="off">
       <div class="wrapper__form__input">
-        <input type="text" name="account" id="account" placeholder="请输入手机号">
+        <input
+          type="text"
+          name="username"
+          placeholder="请输入手机号"
+          autocomplete="off"
+          v-model="username">
       </div>
       <div class="wrapper__form__input">
-        <input type="password" name="password" id="password" placeholder="请输入密码">
+        <input
+          type="password"
+          name="password"
+          placeholder="请输入密码"
+          autocomplete="new-password"
+          v-model="password">
       </div>
       <div class="wrapper__form__input">
-        <input type="password" name="password" id="password" placeholder="确认密码">
+        <input
+          type="password"
+          name="password"
+          placeholder="确认密码"
+          autocomplete="new-password"
+          v-model="comfirmPwd">
       </div>
       <div class="wrapper__form__button">
-        <button class="button-register" type="button">注册</button>
+        <button class="button-register" type="button" @click="handleRegister">注册</button>
       </div>
     </form>
     <div class="wrapper__link">
-      <a class="wrapper__link-login" @click.prevent="handleGoLogin">已有账号去登录</a>
+      <a class="wrapper__link-login" @click.prevent="handleJumpLogin">已有账号去登录</a>
       <a class="wrapper__link-findpwd">找回密码</a>
     </div>
+    <Toast />
   </div>
 </template>
 
 <script>
+import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+import { post } from '../../utils/request.js'
+import Toast, { showToast } from '../../components/Toast.vue'
+
+// 注册业务逻辑
+const useRegisterEffect = () => {
+  const router = useRouter()
+  const data = reactive({
+    username: '',
+    password: '',
+    comfirmPwd: ''
+  })
+  const handleRegister = async () => {
+    if (data.username.trim() === '' || data.password.trim() === '' || data.comfirmPwd.trim() === '') {
+      showToast('请输入完整注册信息')
+      return
+    }
+    if (data.comfirmPwd !== data.password) {
+      showToast('两次密码不一致')
+      return
+    }
+    try {
+      showToast('... ...')
+      const result = await post('/api/user/register', data, { headers: { 'content-type': 'application/json' } })
+      if (result && result.errno === 0) {
+        router.push({ name: 'Login' })
+      } else {
+        showToast('注册失败' + JSON.stringify(result))
+      }
+    } catch (e) {
+      console.log(e)
+      showToast(`注册出错，${e.message}`)
+    }
+  }
+
+  const { username, password, comfirmPwd } = toRefs(data)
+  return {
+    username, password, comfirmPwd, handleRegister
+  }
+}
+
+// 跳转业务逻辑
+const useJumpLoginEffect = () => {
+  const router = useRouter()
+  const handleJumpLogin = () => {
+    router.push({ name: 'Login' })
+  }
+
+  return { handleJumpLogin }
+}
+
 export default {
   name: 'Register',
+  components: {
+    Toast
+  },
+  // 理解 Composition API 中的 Setup 函数，职责仅仅是业务流程的调度
+  // 而具体业务要看对应的方法，减少了业务与组件的耦合
   setup () {
-    const router = useRouter()
-    const handleRegister = () => {
-    }
-    const handleGoLogin = () => {
-      router.push({ name: 'Login' })
-    }
+    const { username, password, comfirmPwd, handleRegister } = useRegisterEffect()
+    const { handleJumpLogin } = useJumpLoginEffect()
     return {
+      username,
+      password,
+      comfirmPwd,
       handleRegister,
-      handleGoLogin
+      handleJumpLogin
     }
   }
 }
