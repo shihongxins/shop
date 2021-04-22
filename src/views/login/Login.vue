@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <img class="wrapper__img" src="http://www.dell-lee.com/imgs/vue3/user.png" alt="">
+    <img class="wrapper__img" src="https://shihongxins.github.io/data-mock/shop/imgs/user.png" alt="">
     <form action="" class="wrapper__form" autocomplete="off">
       <div class="wrapper__form__input">
         <input
@@ -137,7 +137,7 @@ export default {
     &__button {
       margin: .32rem .4rem 0;
       border-radius: .04rem;
-      background: #0091ff;
+      background: $btn-bgcolor;
       box-shadow: 0 .04rem .08rem 0 rgba(0,145,255,0.32);
       button {
         outline: none;
@@ -147,7 +147,7 @@ export default {
         line-height: .48rem;
         font-size: .16rem;
         background: none;
-        color: #fff;
+        color: $white-fontcolor;
       }
     }
   }

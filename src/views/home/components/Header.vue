@@ -40,25 +40,16 @@ export default {
 }
 .search {
   position: relative;
-  &__input {
-    display: block;
-    outline: none;
-    border: none;
-    border-radius: 0.16rem;
-    padding: 0 0 0 0.32rem;
-    width: 100%;
-    height: 0.32rem;
-    line-height: 0.32rem;
-    font-size: 0.14rem;
-    color: #b7b7b7;
-    background: #f5f5f5;
-  }
   .iconfont {
     position: absolute;
     top: 0.06rem;
     left: 0.14rem;
     font-size: 0.16rem;
-    color: #b7b7b7;
+    color: $search-fontcolor;
+  }
+  &__input {
+    @include search__input;
+    padding: 0 0 0 0.32rem;
   }
 }
 </style>

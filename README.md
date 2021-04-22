@@ -1,7 +1,7 @@
 # shop
 
-## preview
-在线预览地址: https://shihongxins.github.io/shop/
+## Preview
+预览地址: https://shihongxins.github.io/shop/
 
 ## Project setup
 ```

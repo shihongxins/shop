@@ -2,7 +2,7 @@
   <div class="banner">
     <img
       class="banner__img"
-      src="http://www.dell-lee.com/imgs/vue3/banner.jpg"
+      src="https://shihongxins.github.io/data-mock/shop/imgs/banner.jpg"
       alt="banner__img"
     />
   </div>
