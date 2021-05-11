@@ -11,9 +11,10 @@
         <input class="search__content__input" type="search" name="search" placeholder="请输入商品名称搜索">
       </div>
     </div>
-    <ShopInfo :item="item" v-if="item._id"/>
+    <ShopInfo :item="item" v-show="item._id"/>
   </div>
-  <ShopContent />
+  <ShopContent :shopInfo="item" />
+  <Cart />
 </template>
 
 <script>
@@ -22,13 +23,13 @@ import { useRouter, useRoute } from 'vue-router'
 import { get } from '../../utils/request'
 import ShopInfo from '../../components/ShopInfo'
 import ShopContent from './components/Content'
+import Cart from './components/Cart'
 
 // 获取商品信息的逻辑
 const getShopDetailsEffect = (id) => {
   const item = ref(0)
   const getShopDetails = async () => {
     const result = await get(`/api/shop/${id}`)
-    console.log(result)
     if (result && result.errno === 0 && result.data) {
       item.value = result.data
     }
@@ -50,7 +51,8 @@ export default {
   name: 'Shop',
   components: {
     ShopInfo,
-    ShopContent
+    ShopContent,
+    Cart
   },
   setup () {
     const route = useRoute()

@@ -24,9 +24,20 @@
           </p>
         </div>
         <div class="products__item__action">
-          <span class="products__item__number--substract">-</span>
-          <span class="products__item__number">0</span>
-          <span class="products__item__number--add">+</span>
+          <template v-if="(!isEmpty)">
+          <span
+            class="products__item__number--substract"
+            @click="changeProductCountInCart(shopInfo, product, -1)">-</span>
+          <span class="products__item__number">
+            <!-- Q: 不在模板中使用过长的逻辑，哪有没有比可选链操作符 `?.` 更好的处理方式？ -->
+            <!-- {{ cartList?.[shopInfo._id]?.products?.[product._id]?.count || 0 }} -->
+            <!-- A: 定义一个方法 -->
+            {{ getProductCountInCart(product._id) }}
+          </span>
+          </template>
+          <span
+            class="products__item__number--add"
+            @click="changeProductCountInCart(shopInfo, product, +1)">+</span>
         </div>
       </div>
     </div>
@@ -34,9 +45,10 @@
 </template>
 
 <script>
-import { reactive, ref, watchEffect } from 'vue'
+import { reactive, ref, watchEffect, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { get } from '../../../utils/request'
+import { useCommonCartEffect } from './commonCartEffect'
 
 // 商品种类 Tab 切换逻辑
 const useCatrgoriesEffect = () => {
@@ -55,13 +67,10 @@ const useCatrgoriesEffect = () => {
 }
 
 // 获取商品逻辑
-const useGetProductsEffect = (currentTab) => {
-  const route = useRoute()
-  const shopId = route.params.id
+const useGetProductsEffect = (shopId, currentTab) => {
   const products = ref(0)
   const getProducts = async () => {
     const result = await get(`/api/shop/${shopId}/products`, { params: { tab: currentTab.value } })
-    console.log(result)
     if (result && result.errno === 0 && result.data) {
       products.value = result.data
     }
@@ -69,19 +78,56 @@ const useGetProductsEffect = (currentTab) => {
   watchEffect(() => {
     getProducts()
   })
-  return { products, getProducts }
+  return { products }
+}
+
+// 购物车相关逻辑
+const useCartEffect = (shopId) => {
+  // 调用购物车操作逻辑
+  const { cartList, changeProductCountInCart } = useCommonCartEffect(shopId)
+  // 购物车是否为空
+  const isEmpty = computed(() => {
+    let result = true
+    const products = ((cartList[shopId]?.products) || {})
+    for (const i in products) {
+      if (products[i]) {
+        result = false
+      }
+    }
+    return result
+  })
+  const getProductCountInCart = (productId) => {
+    return (cartList?.[shopId]?.products?.[productId]?.count || 0)
+  }
+  return { cartList, changeProductCountInCart, isEmpty, getProductCountInCart }
 }
 
 export default {
   name: 'ShopContent',
+  props: {
+    shopInfo: {
+      required: true
+    }
+  },
   setup () {
+    // 获取当前商铺的 id 信息供子组件/其他逻辑使用
+    const route = useRoute()
+    const shopId = route.params.id
+    // 调用类别及类别切换逻辑
     const { currentTab, categories, handleTabClick } = useCatrgoriesEffect()
-    const { products } = useGetProductsEffect(currentTab)
+    // 调用加载商铺的商品列表逻辑
+    const { products } = useGetProductsEffect(shopId, currentTab)
+    // 调用购物车相关逻辑
+    const { cartList, changeProductCountInCart, isEmpty, getProductCountInCart } = useCartEffect(shopId)
     return {
       currentTab,
       categories,
+      handleTabClick,
       products,
-      handleTabClick
+      cartList,
+      changeProductCountInCart,
+      isEmpty,
+      getProductCountInCart
     }
   }
 }

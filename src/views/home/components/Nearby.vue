@@ -20,7 +20,6 @@ const getShopListEffect = () => {
   const shopList = ref(0)
   const getShopList = async () => {
     const result = await get('/api/user/hot_shop')
-    console.log(result)
     if (result && result.errno === 0 && result.data.length) {
       shopList.value = result.data
     }

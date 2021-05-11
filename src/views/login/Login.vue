@@ -51,7 +51,6 @@ const useLoginEffect = () => {
     try {
       showToast('... ...')
       const result = await post('/api/user/login', data, { headers: { 'content-type': 'application/json' } })
-      console.log(result)
       if (result.errno === 0) {
         showToast('登录成功')
         localStorage.setItem('isAuthenticated', 'true')
@@ -60,7 +59,6 @@ const useLoginEffect = () => {
         showToast('登录失败' + JSON.stringify(result))
       }
     } catch (e) {
-      console.log(e)
       showToast(`登录出错，${e.message}`)
     }
   }

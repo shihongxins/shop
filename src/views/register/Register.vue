@@ -70,7 +70,6 @@ const useRegisterEffect = () => {
         showToast('注册失败' + JSON.stringify(result))
       }
     } catch (e) {
-      console.log(e)
       showToast(`注册出错，${e.message}`)
     }
   }
