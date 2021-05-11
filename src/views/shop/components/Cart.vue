@@ -11,10 +11,11 @@
       <div class="products__all">
         <div
           class="products__all__toggle"
-          @click="toggleCartAllProductChecked(!allChecked)">
+          @click="toggleCartAllProductChecked(!calculations.allChecked)">
           <i
             class="iconfont icon-checked"
-            :class="{'allchecked': allChecked}"></i>{{'全选'}}
+            :class="{'allchecked': calculations.allChecked}"></i>
+          {{calculations.allChecked ? '取消全选' : '全选' }}
         </div>
         <div class="products__all__clear">
           <span
@@ -56,14 +57,14 @@
     <div class="check">
       <div class="check__icon" @click="toggleShowCart">
         <img class="check__icon__img" src="http://www.dell-lee.com/imgs/vue3/basket.png" alt="购物车">
-        <span class="check__icon__badge" v-if="(!isEmpty)">{{checkedNumber}}</span>
+        <span class="check__icon__badge" v-if="(!isEmpty)">{{calculations.checkedNumber}}</span>
       </div>
       <div class="check__info">
         <template v-if="isEmpty">
           购物车是空的
         </template>
         <template v-else>
-          总计：<span class="check__info__price">￥ {{checkedPrice}}</span>
+          总计：<span class="check__info__price">￥ {{calculations.checkedPrice}}</span>
         </template>
       </div>
       <div class="check__btn">
@@ -85,14 +86,12 @@ import { useCommonCartEffect } from './commonCartEffect'
 const useCartCountEffect = (shopId) => {
   const store = useStore()
   // 调用购物车操作逻辑
-  const { cartList, changeProductCountInCart } = useCommonCartEffect(shopId)
+  const { cartList, isEmpty, changeProductCountInCart } = useCommonCartEffect(shopId)
   // 购物车产品列表展示/隐藏
   const showCart = ref(false)
   const toggleShowCart = () => {
     // 购物车中非空的才能切换显示
-    if (!isEmpty.value) {
-      showCart.value = !showCart.value
-    }
+    showCart.value = (!isEmpty.value) && (!showCart.value)
   }
   // 店铺信息
   const shopInfo = computed(() => {
@@ -102,56 +101,32 @@ const useCartCountEffect = (shopId) => {
   const products = computed(() => {
     return ((cartList[shopId]?.products) || {})
   })
-  // 购物车是否为空
-  const isEmpty = computed(() => {
-    let result = true
+  const calculations = computed(() => {
+    const result = { isEmpty: true, checkedNumber: 0, checkedPrice: 0, allChecked: true }
     const products = ((cartList[shopId]?.products) || {})
     for (const i in products) {
       if (products[i]) {
-        result = false
+        // 购物车是否为空
+        result.isEmpty = false
+        if (products[i].checked) {
+          // 已选数量
+          result.checkedNumber += products[i].count
+          // 已选总价
+          result.checkedPrice += products[i].count * products[i].price
+        } else {
+          // 是否所有都被选中
+          result.allChecked = false
+        }
       }
     }
+    result.checkedPrice = result.checkedPrice.toFixed(2)
     return result
-  })
-  // 已选数量
-  const checkedNumber = computed(() => {
-    let count = 0
-    const products = ((cartList[shopId]?.products) || {})
-    for (const i in products) {
-      if (products[i] && products[i].checked) {
-        count += products[i].count
-      }
-    }
-    return count
-  })
-  // 已选总价
-  const checkedPrice = computed(() => {
-    let count = 0
-    const products = ((cartList[shopId]?.products) || {})
-    for (const i in products) {
-      if (products[i] && products[i].checked) {
-        count += products[i].count * products[i].price
-      }
-    }
-    return count.toFixed(2)
-  })
-  // 是否所有都被选中
-  const allChecked = computed(() => {
-    let allchecked = true
-    const products = ((cartList[shopId]?.products) || {})
-    for (const i in products) {
-      if (products[i] && !products[i].checked) {
-        allchecked = false
-        break
-      }
-    }
-    return allchecked
   })
   // 切换购物车中商品的选中状态
   const toggleCartProductChecked = (productId) => {
     store.commit('toggleCartProductChecked', { shopId, productId })
   }
-  // 切换购物车中所有商品的选中状态(全选/全不选)
+  // 切换购物车中所有商品的选中状态(全选/取消全选)
   const toggleCartAllProductChecked = (reverseAllchecked) => {
     store.commit('toggleCartAllProductChecked', { shopId, reverseAllchecked })
   }
@@ -163,13 +138,10 @@ const useCartCountEffect = (shopId) => {
   return {
     showCart,
     toggleShowCart,
-    cartList,
     shopInfo,
     products,
     isEmpty,
-    checkedNumber,
-    checkedPrice,
-    allChecked,
+    calculations,
     changeProductCountInCart,
     toggleCartProductChecked,
     toggleCartAllProductChecked,
@@ -226,7 +198,6 @@ export default {
     display: flex;
     justify-content: space-between;
     &__toggle {
-      width: .64rem;
       .iconfont {
         margin-right: .16rem;
         font-size: .2rem;
@@ -241,7 +212,6 @@ export default {
       text-align: right;
       &__btn {
         display: inline-block;
-        height: 100;
       }
     }
   }

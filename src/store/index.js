@@ -1,22 +1,30 @@
 import { createStore } from 'vuex'
 
+// 购物车数据持久化本地存储
+const setLocalStorageCartList = (state) => {
+  const { cartList } = state
+  localStorage.setItem('cartList', JSON.stringify(cartList))
+}
+const getLocalStorageCartList = () => {
+  return JSON.parse((localStorage.getItem('cartList') || '{}'))
+}
+
 export default createStore({
   state: {
-    cartList: {
-      /**
-       * 三层数据结构，第一层为店铺信息，第二层为购物车中商品列表，第三层内容为商品的信息及数量
-       * shopId: {
-       *    ...shopInfo,
-       *    products: {
-       *      productId: {
-       *        ...productInfo,
-       *        count: Number,
-       *        checked: true
-       *      }
-       *    }
-       * }
-       */
-    }
+    /**
+     * 三层数据结构，第一层为店铺信息，第二层为购物车中商品列表，第三层内容为商品的信息及数量
+     * shopId: {
+     *    ...shopInfo,
+     *    products: {
+     *      productId: {
+     *        ...productInfo,
+     *        count: Number,
+     *        checked: true
+     *      }
+     *    }
+     * }
+     */
+    cartList: getLocalStorageCartList()
   },
   mutations: {
     // 添加/减少（移除）商品到购物车
@@ -55,6 +63,7 @@ export default createStore({
           delete state.cartList[shopId]
         }
       }
+      setLocalStorageCartList(state)
     },
     // 切换购物车中商品的选中状态
     toggleCartProductChecked (state, payload) {
@@ -66,6 +75,7 @@ export default createStore({
           productInfo.checked = !productInfo.checked
         }
       }
+      setLocalStorageCartList(state)
     },
     // 切换购物车中所有商品的选中状态(全选/全不选)
     toggleCartAllProductChecked (state, payload) {
@@ -76,11 +86,13 @@ export default createStore({
           products[i].checked = reverseAllchecked
         }
       }
+      setLocalStorageCartList(state)
     },
     // 清空购物车(从cart中移除此店铺)
     clearCartProducts (state, payload) {
       const { shopId } = payload
       delete state.cartList[shopId]
+      setLocalStorageCartList(state)
     }
   },
   actions: {

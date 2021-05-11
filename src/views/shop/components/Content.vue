@@ -24,7 +24,7 @@
           </p>
         </div>
         <div class="products__item__action">
-          <template v-if="(!isEmpty)">
+          <template v-if="getProductCountInCart(product._id) > 0">
           <span
             class="products__item__number--substract"
             @click="changeProductCountInCart(shopInfo, product, -1)">-</span>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { reactive, ref, watchEffect, computed } from 'vue'
+import { reactive, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { get } from '../../../utils/request'
 import { useCommonCartEffect } from './commonCartEffect'
@@ -84,22 +84,11 @@ const useGetProductsEffect = (shopId, currentTab) => {
 // 购物车相关逻辑
 const useCartEffect = (shopId) => {
   // 调用购物车操作逻辑
-  const { cartList, changeProductCountInCart } = useCommonCartEffect(shopId)
-  // 购物车是否为空
-  const isEmpty = computed(() => {
-    let result = true
-    const products = ((cartList[shopId]?.products) || {})
-    for (const i in products) {
-      if (products[i]) {
-        result = false
-      }
-    }
-    return result
-  })
+  const { cartList, isEmpty, changeProductCountInCart } = useCommonCartEffect(shopId)
   const getProductCountInCart = (productId) => {
     return (cartList?.[shopId]?.products?.[productId]?.count || 0)
   }
-  return { cartList, changeProductCountInCart, isEmpty, getProductCountInCart }
+  return { changeProductCountInCart, isEmpty, getProductCountInCart }
 }
 
 export default {
@@ -118,13 +107,12 @@ export default {
     // 调用加载商铺的商品列表逻辑
     const { products } = useGetProductsEffect(shopId, currentTab)
     // 调用购物车相关逻辑
-    const { cartList, changeProductCountInCart, isEmpty, getProductCountInCart } = useCartEffect(shopId)
+    const { changeProductCountInCart, isEmpty, getProductCountInCart } = useCartEffect(shopId)
     return {
       currentTab,
       categories,
       handleTabClick,
       products,
-      cartList,
       changeProductCountInCart,
       isEmpty,
       getProductCountInCart
