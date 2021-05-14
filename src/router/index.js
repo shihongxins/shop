@@ -34,9 +34,24 @@ const routes = [
     }
   },
   {
-    path: '/shop/:id',
+    path: '/shop/:shopId',
     name: 'Shop',
-    component: () => import(/* webpackChunkName: "login" */ '../views/shop/Shop.vue')
+    component: () => import(/* webpackChunkName: "shop" */ '../views/shop/Shop.vue')
+  },
+  {
+    path: '/orderComfirmation/:shopId',
+    name: 'OrderComfirmation',
+    component: () => import(/* webpackChunkName: "orderComfirmation" */ '../views/orderComfirmation/OrderComfirmation.vue')
+  },
+  {
+    path: '/cartList',
+    name: 'CartList',
+    component: () => import(/* webpackChunkName: "cartList" */ '../views/cartList/CartList.vue')
+  },
+  {
+    path: '/orderList',
+    name: 'OrderList',
+    component: () => import(/* webpackChunkName: "orderList" */ '../views/orderList/OrderList.vue')
   },
   {
     path: '/logout',

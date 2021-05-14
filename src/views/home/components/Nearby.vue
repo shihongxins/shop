@@ -4,7 +4,7 @@
     <router-link
       v-for="item in shopList"
       :key="item._id"
-      :to="{ name: 'Shop', params: { id: item._id } }">
+      :to="{ name: 'Shop', params: { shopId: item._id } }">
       <ShopInfo :item="item" />
     </router-link>
   </div>

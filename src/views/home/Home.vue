@@ -14,7 +14,7 @@ import HomeHeader from './components/Header.vue'
 import HomeBanner from './components/Banner.vue'
 import HomeIcons from './components/Icons.vue'
 import HomeNearby from './components/Nearby.vue'
-import Docker from './components/Docker.vue'
+import Docker from '../../components/Docker.vue'
 
 export default {
   name: 'Home',

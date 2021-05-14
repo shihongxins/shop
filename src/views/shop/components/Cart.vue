@@ -56,7 +56,7 @@
     <!-- 计价结算区 -->
     <div class="check">
       <div class="check__icon" @click="toggleShowCart">
-        <img class="check__icon__img" src="http://www.dell-lee.com/imgs/vue3/basket.png" alt="购物车">
+        <img class="check__icon__img" src="https://shihongxins.github.io/data-mock/shop/imgs/basket.png" alt="购物车">
         <span class="check__icon__badge" v-if="(!isEmpty)">{{calculations.checkedNumber}}</span>
       </div>
       <div class="check__info">
@@ -68,7 +68,7 @@
         </template>
       </div>
       <div class="check__btn">
-        <router-link :to="{ path: '/'}">
+        <router-link :to="{ name: 'OrderComfirmation', params: shopId }">
         去结算
         </router-link>
       </div>
@@ -77,51 +77,23 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { useCommonCartEffect } from './commonCartEffect'
+import { useCommonCartEffect } from '../../../effects/commonCartEffect'
 
 // 购物车逻辑
 const useCartCountEffect = (shopId) => {
   const store = useStore()
-  // 调用购物车操作逻辑
-  const { cartList, isEmpty, changeProductCountInCart } = useCommonCartEffect(shopId)
   // 购物车产品列表展示/隐藏
   const showCart = ref(false)
   const toggleShowCart = () => {
     // 购物车中非空的才能切换显示
     showCart.value = (!isEmpty.value) && (!showCart.value)
   }
-  // 店铺信息
-  const shopInfo = computed(() => {
-    return (cartList[shopId] || {})
-  })
-  // 购物车中商品列表
-  const products = computed(() => {
-    return ((cartList[shopId]?.products) || {})
-  })
-  const calculations = computed(() => {
-    const result = { isEmpty: true, checkedNumber: 0, checkedPrice: 0, allChecked: true }
-    const products = ((cartList[shopId]?.products) || {})
-    for (const i in products) {
-      if (products[i]) {
-        // 购物车是否为空
-        result.isEmpty = false
-        if (products[i].checked) {
-          // 已选数量
-          result.checkedNumber += products[i].count
-          // 已选总价
-          result.checkedPrice += products[i].count * products[i].price
-        } else {
-          // 是否所有都被选中
-          result.allChecked = false
-        }
-      }
-    }
-    result.checkedPrice = result.checkedPrice.toFixed(2)
-    return result
-  })
+  // 调用购物车操作逻辑
+  const { shopInfo, products, isEmpty, calculations, changeProductCountInCart } = useCommonCartEffect(shopId)
+
   // 切换购物车中商品的选中状态
   const toggleCartProductChecked = (productId) => {
     store.commit('toggleCartProductChecked', { shopId, productId })
@@ -153,9 +125,10 @@ export default {
   name: 'Cart',
   setup () {
     const route = useRoute()
-    const shopId = route.params.id
+    const shopId = route.params.shopId
     // 返回调用购物车逻辑（包含操作逻辑）
     return {
+      shopId,
       ...useCartCountEffect(shopId)
     }
   }
@@ -184,12 +157,11 @@ export default {
   background: $white-fontcolor;
 }
 .products {
-  flex: 1;
   height: 100%;
   overflow: hidden auto;
   &__all {
     box-sizing: border-box;
-    border-bottom: .01rem solid $content-bgcolor;
+    border-bottom: .01rem solid $content-bgcolor; // TODO: 1px border
     padding: 0 .16rem;
     height: .52rem;
     line-height: .52rem;
@@ -294,7 +266,7 @@ export default {
 }
 .check {
   box-sizing: border-box;
-  border-top: .01rem solid $content-bgcolor;
+  border-top: .01rem solid $content-bgcolor; // TODO: 1px border
   height: .5rem;
   line-height: .5rem;
   display: flex;

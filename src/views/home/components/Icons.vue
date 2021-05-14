@@ -13,43 +13,43 @@ export default {
   setup () {
     const icons = [
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/超市.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/便利超市.png',
         desc: '便利超市'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/菜市场.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/菜市场.png',
         desc: '菜市场'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/水果店.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/水果店.png',
         desc: '水果店'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/鲜花.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/鲜花绿植.png',
         desc: '鲜花绿植'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/医药健康.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/医药健康.png',
         desc: '医药健康'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/家居.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/家居时尚.png',
         desc: '家居时尚'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/蛋糕.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/烘焙蛋糕.png',
         desc: '烘焙蛋糕'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/签到.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/签到.png',
         desc: '签到'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/大牌免运.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/大牌免运.png',
         desc: '大牌免运'
       },
       {
-        url: 'http://www.dell-lee.com/imgs/vue3/红包.png',
+        url: 'https://shihongxins.github.io/data-mock/shop/imgs/icons/红包套餐.png',
         desc: '红包套餐'
       }
     ]

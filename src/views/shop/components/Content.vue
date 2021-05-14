@@ -48,7 +48,7 @@
 import { reactive, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { get } from '../../../utils/request'
-import { useCommonCartEffect } from './commonCartEffect'
+import { useCommonCartEffect } from '../../../effects/commonCartEffect'
 
 // 商品种类 Tab 切换逻辑
 const useCatrgoriesEffect = () => {
@@ -101,7 +101,7 @@ export default {
   setup () {
     // 获取当前商铺的 id 信息供子组件/其他逻辑使用
     const route = useRoute()
-    const shopId = route.params.id
+    const shopId = route.params.shopId
     // 调用类别及类别切换逻辑
     const { currentTab, categories, handleTabClick } = useCatrgoriesEffect()
     // 调用加载商铺的商品列表逻辑

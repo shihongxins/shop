@@ -56,7 +56,8 @@ export default {
   },
   setup () {
     const route = useRoute()
-    const { item } = getShopDetailsEffect(route.params.id)
+    const shopId = route.params.shopId
+    const { item } = getShopDetailsEffect(shopId)
     const { handleBackClick } = useRouterBackEffect()
     return {
       item,
