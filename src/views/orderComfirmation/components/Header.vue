@@ -66,7 +66,7 @@ export default {
     left: .18rem;
     border-radius: .04rem;
     padding: .16rem;
-    background: $white-fontcolor;
+    background: #fff;
     color: $content-fontcolor;
     &__title {
       margin: 0;

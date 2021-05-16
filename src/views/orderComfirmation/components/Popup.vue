@@ -77,7 +77,7 @@ export default {
   border-radius: .04rem;
   width: 3rem;
   height: 1.56rem;
-  background: $white-fontcolor;
+  background: #fff;
   text-align: center;
   &__icons {
     height: calc(1.56rem - 0.81rem);
@@ -117,7 +117,7 @@ export default {
     display: flex;
     justify-content: space-between;
     button {
-      border: .01rem solid #4FB0F9; // TODO: 1px border
+      border: .01rem solid $btn-comfirm-bgcolor; // TODO: 1px border
       border-radius: .16rem;
       width: .8rem;
       height: .32rem;
@@ -129,7 +129,7 @@ export default {
       }
       &.comfirmed {
         color: $white-fontcolor;
-        background: #4FB0F9;
+        background: $btn-comfirm-bgcolor;
       }
     }
   }

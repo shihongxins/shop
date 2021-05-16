@@ -128,7 +128,7 @@ export default {
   .order {
     border-radius: .04rem;
     padding: .16rem;
-    background: $white-fontcolor;
+    background: #fff;
     &__shop {
       display: flex;
       justify-content: space-between;

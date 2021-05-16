@@ -54,6 +54,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "orderList" */ '../views/orderList/OrderList.vue')
   },
   {
+    path: '/user',
+    name: 'User',
+    component: () => import(/* webpackChunkName: "user" */ '../views/user/User.vue')
+  },
+  {
+    path: '/address',
+    name: 'AddressList',
+    component: () => import(/* webpackChunkName: "addressList" */ '../views/address/AddressList.vue')
+  },
+  {
+    path: '/address/edit',
+    name: 'AddressEdit',
+    component: () => import(/* webpackChunkName: "addressEdit" */ '../views/address/AddressEdit.vue')
+  },
+  {
     path: '/logout',
     name: 'Logout',
     beforeEnter: (to, from, next) => {

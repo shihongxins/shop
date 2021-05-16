@@ -88,7 +88,7 @@ export default {
       text-align: center;
       .iconfont {
         font-size: .2rem;
-        color: #b6b6b6;
+        color: $btn-back-bgcolor;
       }
     }
     &__content {

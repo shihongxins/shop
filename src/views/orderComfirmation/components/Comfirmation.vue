@@ -111,7 +111,7 @@ export default {
   height: .49rem;
   line-height: .49rem;
   font-size: .14rem;
-  background: $white-fontcolor;
+  background: #fff;
   display: flex;
   &__price {
     flex: 1;
@@ -126,7 +126,7 @@ export default {
     width: .98rem;
     text-align: center;
     color: $white-fontcolor;
-    background: #4FB0F9;
+    background: $btn-comfirm-bgcolor;
   }
 }
 </style>

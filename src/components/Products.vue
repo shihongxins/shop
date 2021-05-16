@@ -108,7 +108,7 @@ export default {
 .shop {
   border-radius: .04rem;
   padding: .16rem;
-  background: $white-fontcolor;
+  background: #fff;
   &__name {
     margin: 0;
     line-height: .22rem;
@@ -122,7 +122,7 @@ export default {
 .products {
   &__item {
     margin-top: .16rem;
-    background: $white-fontcolor;
+    background: #fff;
     display: flex;
     position: relative;
     &__img {

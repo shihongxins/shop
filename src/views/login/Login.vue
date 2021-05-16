@@ -121,7 +121,7 @@ export default {
         display: block;
         box-sizing: border-box;
         outline: none;
-        border: 1px solid rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.1); // TODO: 1px border
         border-radius: .06rem;
         padding: 0 .16rem;
         width: 100%;

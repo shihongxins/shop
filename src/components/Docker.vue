@@ -42,7 +42,7 @@ export default {
       {
         title: '我的',
         iconClass: 'icon-my',
-        to: { name: 'Home' }
+        to: { name: 'User' }
       }
     ]
 
@@ -58,7 +58,7 @@ export default {
 @import '../assets/style/variables.scss';
 
 .docker {
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   left: 0;

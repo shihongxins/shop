@@ -144,7 +144,7 @@ export default {
   &__item {
     line-height: .4rem;
     &--active {
-      background: $white-fontcolor;
+      background: #fff;
     }
   }
 }
@@ -153,7 +153,7 @@ export default {
   height: 100%;
   overflow: hidden auto;
   &__item {
-    border-bottom: 1px solid $content-bgcolor;
+    border-bottom: 1px solid $content-bgcolor; // TODO: 1px border
     padding: .12rem .16rem;
     display: flex;
     position: relative;
@@ -207,7 +207,7 @@ export default {
         vertical-align: middle;
         text-align: center;
         &.products__item__number--substract {
-          border: 1px solid $medium-fontcolor;
+          border: 1px solid $medium-fontcolor; // TODO: 1px border
           border-radius: 50%;
           color: $medium-fontcolor;
         }

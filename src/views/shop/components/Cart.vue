@@ -154,7 +154,7 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 6;
-  background: $white-fontcolor;
+  background: #fff;
 }
 .products {
   height: 100%;
@@ -166,7 +166,7 @@ export default {
     height: .52rem;
     line-height: .52rem;
     font-size: .14rem;
-    background: $white-fontcolor;
+    background: #fff;
     display: flex;
     justify-content: space-between;
     &__toggle {
@@ -188,9 +188,9 @@ export default {
     }
   }
   &__item {
-    border-bottom: 1px solid $content-bgcolor;
+    border-bottom: 1px solid $content-bgcolor;  // TODO: 1px border
     padding: .12rem .16rem;
-    background: $white-fontcolor;
+    background: #fff;
     display: flex;
     position: relative;
     .iconfont {
@@ -247,7 +247,7 @@ export default {
         vertical-align: middle;
         text-align: center;
         &.products__item__number--substract {
-          border: 1px solid $medium-fontcolor;
+          border: 1px solid $medium-fontcolor; // TODO: 1px border
           border-radius: 50%;
           color: $medium-fontcolor;
         }

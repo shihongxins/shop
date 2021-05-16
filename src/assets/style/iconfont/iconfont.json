@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6754231",
+      "name": "yen",
+      "font_class": "yen",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "61305",
+      "name": "users",
+      "font_class": "users",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "19505358",
+      "name": "star",
+      "font_class": "star",
+      "unicode": "e6ba",
+      "unicode_decimal": 59066
+    },
+    {
+      "icon_id": "11049476",
+      "name": "user-edit",
+      "font_class": "user-edit",
+      "unicode": "e747",
+      "unicode_decimal": 59207
+    },
+    {
       "icon_id": "12222817",
       "name": "error",
       "font_class": "error",
