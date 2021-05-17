@@ -33,7 +33,7 @@ export default {
   }
   &__content {
     flex: 1;
-    border-bottom: 1px solid $content-bgcolor; // TODO: 1px border
+    border-bottom: .01rem solid $content-bgcolor; // TODO: 1px border
     padding-bottom: 0.12rem;
     color: $content-fontcolor;
     &__title {

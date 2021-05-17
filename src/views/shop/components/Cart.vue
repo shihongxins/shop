@@ -196,7 +196,7 @@ export default {
     }
   }
   &__item {
-    border-bottom: 1px solid $content-bgcolor;  // TODO: 1px border
+    border-bottom: .01rem solid $content-bgcolor;  // TODO: 1px border
     padding: .16rem .18rem;
     background: #fff;
     display: flex;

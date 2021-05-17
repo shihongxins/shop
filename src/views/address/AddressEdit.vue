@@ -145,7 +145,7 @@ export default {
   font-size: .14rem;
   background: #fff;
   &__item {
-    border-top: 1px solid $content-bgcolor; // TODO: 1px border
+    border-top: .01rem solid $content-bgcolor; // TODO: 1px border
     padding: .12rem 0;
     &:first-child {
       border-top: none;

@@ -133,7 +133,7 @@ export default {
   }
   &__item {
     margin: .12rem 0 0 .10rem;
-    border-radius: 2px;
+    border-radius: .02rem;
     padding: .08rem .1rem;
     line-height: .16rem;
     font-size: .14rem;

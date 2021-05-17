@@ -65,6 +65,7 @@ export default {
     border-radius: 50%;
     width: .94rem;
     height: .94rem;
+    background: #C1C0C9;
   }
   // 昵称
   &__name {
@@ -74,7 +75,7 @@ export default {
       padding-top: .59rem; // 留出头像下部分位置
       line-height: .36rem;
       font-size: .24rem;
-      letter-spacing: 0.19px;
+      letter-spacing: .02rem;
       color: $userinfo-main-color;
       font-weight: normal;
     }
@@ -110,7 +111,7 @@ export default {
   .hr {
     margin: .12rem 0;
     height: 0;
-    border-top: 1px solid; // TODO: 1px border
+    border-top: .01rem solid; // TODO: 1px border
     border-color: $content-bgcolor;
   }
   // 用户账户资产

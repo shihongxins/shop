@@ -153,7 +153,7 @@ export default {
   height: 100%;
   overflow: hidden auto;
   &__item {
-    border-bottom: 1px solid $content-bgcolor; // TODO: 1px border
+    border-bottom: .01rem solid $content-bgcolor; // TODO: 1px border
     padding: .12rem .16rem;
     display: flex;
     position: relative;
