@@ -52,7 +52,7 @@ import { useCommonCartEffect } from '../../../effects/commonCartEffect'
 
 // 商品种类 Tab 切换逻辑
 const useCatrgoriesEffect = () => {
-  const currentTab = ref('all')
+  const currentTab = ref('fruit')
   const categories = reactive([
     { name: '全部商品', tab: 'all' },
     { name: '限时秒杀', tab: 'seckill' },

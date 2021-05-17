@@ -1,16 +1,16 @@
 <template>
   <div class="header">
-    <div class="search">
       <div
-        class="search__back"
+        class="header__back__btn"
         @click="handleBackClick">
         <i class="iconfont icon-back"></i>
       </div>
-      <div class="search__content">
-        <i class="iconfont icon-search"></i>
-        <input class="search__content__input" type="search" name="search" placeholder="请输入商品名称搜索">
+      <div class="search__area">
+        <Search
+          :placeholder="'请输入商品名称搜索'"/>
       </div>
-    </div>
+  </div>
+  <div class="shopinfo__wrapper">
     <ShopInfo :item="item" v-show="item._id"/>
   </div>
   <ShopContent :shopInfo="item" />
@@ -21,6 +21,7 @@
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { get } from '../../utils/request'
+import Search from '../search/Search'
 import ShopInfo from '../../components/ShopInfo'
 import ShopContent from './components/Content'
 import Cart from './components/Cart'
@@ -50,6 +51,7 @@ const useRouterBackEffect = () => {
 export default {
   name: 'Shop',
   components: {
+    Search,
     ShopInfo,
     ShopContent,
     Cart
@@ -72,43 +74,28 @@ export default {
 @import '../../assets/style/variables.scss';
 
 .header {
-  padding: 0 .18rem;
-  ::v-deep .shopinfo {
-    .shopinfo__content {
-      border: none;
+  // 下外边距为 0.04 的原因是 header 下的 shopinfo 组件 本身具有 .12 的上内边距，两者相加与设计稿相同
+  margin: .16rem .18rem .04rem;
+  display: flex;
+  &__back__btn {
+    width: .3rem;
+    height: .32rem;
+    line-height: .32rem;
+    text-align: center;
+    .iconfont {
+      font-size: .2rem;
+      color: $btn-back-bgcolor;
     }
   }
-  .search {
-    margin: .14rem 0 .04rem;
-    display: flex;
-    &__back {
-      width: .3rem;
-      height: .32rem;
-      line-height: .32rem;
-      text-align: center;
-      .iconfont {
-        font-size: .2rem;
-        color: $btn-back-bgcolor;
-      }
-    }
-    &__content {
-      flex: 1;
-      position: relative;
-      .iconfont {
-        position: absolute;
-        top: .08rem;
-        left: .16rem;
-        color: $search-fontcolor;
-      }
-      &__input {
-        @include search__input;
-        padding: 0 .2rem 0 .44rem;
-        color: $content-fontcolor;
-        &::placeholder {
-          color: $content-fontcolor;
-        }
-      }
-    }
+  .search__area {
+    flex: 1;
+  }
+}
+// vue 深度作用选择器，对公用用组件的 scoped 样式进行微调
+.shopinfo__wrapper :deep(.shopinfo) {
+  padding: .12rem .18rem 0;
+  .shopinfo__content {
+    border: none;
   }
 }
 </style>

@@ -4,15 +4,18 @@
     重庆市渝中区解放碑步行街100号
     <i class="iconfont icon-bell"></i>
   </div>
-  <div class="search">
-    <i class="iconfont icon-search"></i>
-    <input type="search" class="search__input" placeholder="双十一优惠商品" />
-  </div>
+  <Search
+    :placeholder="'双十一优惠商品'"/>
 </template>
 
 <script>
+import Search from '../../search/Search'
+
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  components: {
+    Search
+  }
 }
 </script>
 
@@ -36,20 +39,6 @@ export default {
       right: 0;
       left: auto;
     }
-  }
-}
-.search {
-  position: relative;
-  .iconfont {
-    position: absolute;
-    top: 0.06rem;
-    left: 0.14rem;
-    font-size: 0.16rem;
-    color: $search-fontcolor;
-  }
-  &__input {
-    @include search__input;
-    padding: 0 0 0 0.32rem;
   }
 }
 </style>

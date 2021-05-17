@@ -273,6 +273,9 @@ export default {
   &__icon {
     position: relative;
     width: .84rem;
+    // 添加高度和隐藏，防止溢出换行，产生滚动
+    height: 100%;
+    overflow: hidden;
     &__img {
       display: block;
       margin: .12rem auto;

@@ -8,6 +8,11 @@
       <div class="card">
         <UserFunction />
       </div>
+      <div class="card">
+        <router-link :to="{path: '/logout'}">
+          <div class="user__logout">注销</div>
+        </router-link>
+      </div>
     </div>
   </div>
   <Docker />
@@ -29,6 +34,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/style/variables.scss';
+
 // 用户主页
 .user {
   position: absolute;
@@ -37,6 +44,10 @@ export default {
   bottom: .5rem; // 留出 Docker 区域
   left: 0;
   overflow: hidden;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
   // 用户主页顶部背景
   &__bgimg {
     position: absolute;
@@ -65,6 +76,15 @@ export default {
     box-shadow: 0 .08rem .16rem 0 rgba(0,0,0,0.08);
     text-align: center;
     position: relative;
+  }
+  &__logout {
+    border-radius: 0.04rem;
+    height: 0.48rem;
+    line-height: 0.48rem;
+    font-size: 0.16rem;
+    color: #fff;
+    background: $btn-bgcolor;
+    box-shadow: 0 0.04rem 0.08rem 0 rgb(0 145 255 / 32%);
   }
 }
 </style>
