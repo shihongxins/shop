@@ -50,6 +50,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../assets/style/variables.scss';
+
 .search__input__wrapper {
   position: relative;
   .icon-search {
@@ -59,7 +61,7 @@ export default {
     margin: auto .16rem;
     height: .16rem; // 垂直居中
     font-size: .16rem;
-    color: #b7b7b7;
+    color: $search-fontcolor;
   }
 }
 .search__input {
@@ -72,10 +74,10 @@ export default {
   height: .32rem;
   line-height: .32rem;
   font-size: .14rem;
-  color: #333;
-  background: #f5f5f5;
+  color: $content-fontcolor;
+  background: $search-bgcolor;
   &::placeholder {
-    color: #b7b7b7;
+    color: $search-fontcolor;
   }
 }
 </style>

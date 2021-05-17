@@ -14,7 +14,7 @@ import SearchInput from './components/SearchInput'
 const useSearchInputStatusEffect = () => {
   const component = ref('')
   const handleStatusChange = (st) => {
-    console.log('=============StatusChange===========', component.value)
+    // console.log('=============StatusChange===========', component.value)
     if (st === 'focus') {
       component.value = 'SearchAdvice'
     } else if (st === 'change') {

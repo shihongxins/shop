@@ -15,10 +15,21 @@
       </div>
       <div class="popup__content" v-if="popupShowType=='success'">
         <div class="popup__content__icons">
-          <i class="iconfont icon-error" @click="handleCancelClick"></i>
           <i class="iconfont icon-success"></i>
         </div>
         <h3 class="popup__content__title">支付成功，等待配送</h3>
+      </div>
+      <div class="popup__content" v-if="popupShowType=='faild'">
+        <div class="popup__content__icons">
+          <i class="iconfont icon-cancel"></i>
+        </div>
+        <h3 class="popup__content__title">支付失败，请检查网络</h3>
+      </div>
+      <div class="popup__content" v-if="popupShowType=='cancel'">
+        <div class="popup__content__icons">
+          <i class="iconfont icon-cancel"></i>
+        </div>
+        <h3 class="popup__content__title">已取消</h3>
       </div>
     </div>
   </div>
@@ -29,7 +40,7 @@ import { ref } from 'vue'
 
 const popupShowType = ref('none')
 export const changePopupShowType = (type) => {
-  if (['none', 'comfirm', 'success'].indexOf(type) > -1) {
+  if (['none', 'comfirm', 'success', 'faild', 'cancel'].indexOf(type) > -1) {
     popupShowType.value = type
   } else {
     popupShowType.value = 'none'
@@ -89,7 +100,7 @@ export default {
       font-size: .14rem;
       color: $medium-fontcolor;
     }
-    .icon-success {
+    .icon-success,.icon-cancel {
       position: absolute;
       right: 0;
       left: 0;

@@ -86,13 +86,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../assets/style/variables.scss';
+
 .search__advice {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   padding: .16rem .18rem;
   background: #fff;
   .search__area {
@@ -104,7 +106,7 @@ export default {
       margin-left: .12rem;
       line-height: .32rem;
       font-size: .16rem;
-      color: #333333;
+      color: $content-fontcolor;
     }
   }
   &__group {
@@ -115,7 +117,7 @@ export default {
   }
   &__title {
     line-height: .2rem;
-    color: #333333;
+    color: $content-fontcolor;
     display: flex;
     justify-content: space-between;
     h4 {
@@ -135,8 +137,8 @@ export default {
     padding: .08rem .1rem;
     line-height: .16rem;
     font-size: .14rem;
-    color: #666;
-    background: #F5F5F5;
+    color: $medium-fontcolor;
+    background: $search-bgcolor;
   }
 }
 </style>

@@ -5,15 +5,3 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-@mixin search__input {
-  display: block;
-  outline: none;
-  border: none;
-  border-radius: 0.16rem;
-  width: 100%;
-  height: 0.32rem;
-  line-height: 0.32rem;
-  font-size: 0.14rem;
-  color: $search-fontcolor;
-  background: $search-bgcolor;
-}

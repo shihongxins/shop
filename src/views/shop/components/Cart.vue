@@ -41,15 +41,15 @@
           </p>
         </div>
         <div class="products__item__action">
-          <span
-            class="products__item__number--substract"
-            @click="changeProductCountInCart(shopInfo, product, -1)">-</span>
+          <i
+            class="products__item__number--substract iconfont icon-minus"
+            @click="changeProductCountInCart(shopInfo, product, -1)"></i>
           <span class="products__item__number">
             {{ (products[product._id].count || 0) }}
           </span>
-          <span
-            class="products__item__number--add"
-            @click="changeProductCountInCart(shopInfo, product, +1)">+</span>
+          <i
+            class="products__item__number--add iconfont icon-add"
+            @click="changeProductCountInCart(shopInfo, product, +1)"></i>
         </div>
       </div>
     </div>
@@ -67,23 +67,22 @@
           总计：<span class="check__info__price">￥ {{calculations.checkedPrice}}</span>
         </template>
       </div>
-      <div class="check__btn">
-        <router-link :to="{ name: 'OrderComfirmation', params: shopId }">
-        去结算
-        </router-link>
-      </div>
+      <div
+        class="check__btn"
+        @click="doCheckout">去结算</div>
     </div>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { useCommonCartEffect } from '../../../effects/commonCartEffect'
 
 // 购物车逻辑
 const useCartCountEffect = (shopId) => {
+  const router = useRouter()
   const store = useStore()
   // 购物车产品列表展示/隐藏
   const showCart = ref(false)
@@ -107,6 +106,14 @@ const useCartCountEffect = (shopId) => {
     showCart.value = false
     store.commit('clearCartProducts', { shopId })
   }
+  // 去结算(跳转之前需要验证是否有被选中商品)
+  const doCheckout = () => {
+    if (calculations.value.checkedNumber > 0) {
+      router.push({ name: 'OrderComfirmation', params: shopId })
+    } else {
+      alert('购物车中没有选中的商品')
+    }
+  }
   return {
     showCart,
     toggleShowCart,
@@ -117,7 +124,8 @@ const useCartCountEffect = (shopId) => {
     changeProductCountInCart,
     toggleCartProductChecked,
     toggleCartAllProductChecked,
-    clearCartProducts
+    clearCartProducts,
+    doCheckout
   }
 }
 
@@ -145,7 +153,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 3;
+  z-index: 1;
   background: rgba(0, 0, 0, .5);
 }
 .cart {
@@ -153,7 +161,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 6;
+  z-index: 2;
   background: #fff;
 }
 .products {
@@ -189,13 +197,13 @@ export default {
   }
   &__item {
     border-bottom: 1px solid $content-bgcolor;  // TODO: 1px border
-    padding: .12rem .16rem;
+    padding: .16rem .18rem;
     background: #fff;
     display: flex;
     position: relative;
     .iconfont {
       margin-right: .16rem;
-      line-height: .46rem;
+      line-height: .46rem; // 垂直居中，高度由图片高度决定的
       font-size: .2rem;
       color: $notice-fontcolor;
       &.products__item--checked {
@@ -234,32 +242,21 @@ export default {
       }
     }
     &__action {
-      position: absolute;
-      right: .18rem;
-      bottom: .12rem;
-      span {
-        display: inline-block;
-        box-sizing: border-box;
-        width: .2rem;
-        height: .2rem;
-        line-height: 0.2rem;
-        font-size: 0.16rem;
-        vertical-align: middle;
-        text-align: center;
-        &.products__item__number--substract {
-          border: 1px solid $medium-fontcolor; // TODO: 1px border
-          border-radius: 50%;
-          color: $medium-fontcolor;
-        }
-        &.products__item__number {
-          margin: 0 .06rem;
-          width: auto;
-        }
-        &.products__item__number--add {
-          border-radius: 50%;
-          color: $white-fontcolor;
-          background: $btn-bgcolor;
-        }
+      // item 中垂直居中，故不需要像 Shop Content 中绝对定位
+      .iconfont {
+        margin: 0;
+        font-size: .2rem;
+      }
+      .products__item__number--substract {
+        color: $medium-fontcolor;
+      }
+      .products__item__number {
+        padding: 0 .16rem;
+        font-size: .14rem;
+        color: $content-fontcolor;
+      }
+      .products__item__number--add {
+        color: $btn-bgcolor;
       }
     }
   }
@@ -315,10 +312,6 @@ export default {
     text-align: center;
     color: $white-fontcolor;
     background: $btn-bgcolor;
-    a {
-      text-decoration: none;
-      color: $white-fontcolor;
-    }
   }
 }
 </style>

@@ -25,9 +25,9 @@
         </div>
         <div class="products__item__action">
           <template v-if="getProductCountInCart(product._id) > 0">
-          <span
-            class="products__item__number--substract"
-            @click="changeProductCountInCart(shopInfo, product, -1)">-</span>
+          <i
+            class="products__item__number--substract iconfont icon-minus"
+            @click="changeProductCountInCart(shopInfo, product, -1)"></i>
           <span class="products__item__number">
             <!-- Q: 不在模板中使用过长的逻辑，哪有没有比可选链操作符 `?.` 更好的处理方式？ -->
             <!-- {{ cartList?.[shopInfo._id]?.products?.[product._id]?.count || 0 }} -->
@@ -35,9 +35,9 @@
             {{ getProductCountInCart(product._id) }}
           </span>
           </template>
-          <span
-            class="products__item__number--add"
-            @click="changeProductCountInCart(shopInfo, product, +1)">+</span>
+          <i
+            class="products__item__number--add iconfont icon-add"
+            @click="changeProductCountInCart(shopInfo, product, +1)"></i>
         </div>
       </div>
     </div>
@@ -197,29 +197,20 @@ export default {
       position: absolute;
       right: .18rem;
       bottom: .12rem;
-      span {
-        display: inline-block;
-        box-sizing: border-box;
-        width: .2rem;
-        height: .2rem;
-        line-height: 0.2rem;
-        font-size: 0.16rem;
-        vertical-align: middle;
-        text-align: center;
-        &.products__item__number--substract {
-          border: 1px solid $medium-fontcolor; // TODO: 1px border
-          border-radius: 50%;
-          color: $medium-fontcolor;
-        }
-        &.products__item__number {
-          margin: 0 .06rem;
-          width: auto;
-        }
-        &.products__item__number--add {
-          border-radius: 50%;
-          color: $white-fontcolor;
-          background: $btn-bgcolor;
-        }
+      line-height: .2rem;
+      .products__item__number--substract {
+        font-size: .2rem;
+        color: $medium-fontcolor;
+      }
+      .products__item__number {
+        padding: 0 .1rem;
+        font-size: .14rem;
+        vertical-align: top;
+        color: $content-fontcolor;
+      }
+      .products__item__number--add {
+        font-size: .2rem;
+        color: $btn-bgcolor;
       }
     }
   }

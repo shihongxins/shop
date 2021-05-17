@@ -16,7 +16,7 @@
         class="search__result__item"
         v-for="shop in shops"
         :key="shop._id"
-        @click="$router.push(`/shop/${shop._id}`)">
+        @click="handleResultItemClick(shop._id)">
         <ShopInfo :item="shop" />
         <div class="shopinfo__products">
           <!-- 只展示前三个故使用 template -->
@@ -50,8 +50,11 @@ import ShopInfo from '../../../components/ShopInfo'
 import Toast, { showToast } from '../../../components/Toast'
 import { get } from '../../../utils/request'
 import { inject, reactive, ref, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 
-const useSearchResultEffect = (keywords) => {
+const useSearchResultEffect = (props) => {
+  // 搜索关键字返回结果
+  const keywords = props.searchText.value
   const data = reactive({ shops: [] })
   const getSearchResultByKeywords = async () => {
     try {
@@ -67,7 +70,14 @@ const useSearchResultEffect = (keywords) => {
   }
   getSearchResultByKeywords()
   const { shops } = toRefs(data)
-  return { shops }
+  // 点击搜索结果项目，跳转到具体商店
+  const router = useRouter()
+  const handleResultItemClick = (shopId) => {
+    // 跳转前关闭搜索结果
+    props.handleStatusChange('none')
+    router.push({ name: 'Shop', params: shopId })
+  }
+  return { shops, handleResultItemClick }
 }
 
 export default {
@@ -90,8 +100,8 @@ export default {
     Toast
   },
   setup (props) {
-    const { shops } = useSearchResultEffect(props.searchText.value)
-    return { shops }
+    const { shops, handleResultItemClick } = useSearchResultEffect(props)
+    return { shops, handleResultItemClick }
   }
 }
 </script>
@@ -106,7 +116,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   padding: .16rem .18rem;
   background: #fff;
   .search__area {

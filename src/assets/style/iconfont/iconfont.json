@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2978570",
+      "name": "add",
+      "font_class": "add",
+      "unicode": "e6c1",
+      "unicode_decimal": 59073
+    },
+    {
+      "icon_id": "3607694",
+      "name": "cancel",
+      "font_class": "cancel",
+      "unicode": "e6b5",
+      "unicode_decimal": 59061
+    },
+    {
+      "icon_id": "17630448",
+      "name": "minus",
+      "font_class": "minus",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
       "icon_id": "6754231",
       "name": "yen",
       "font_class": "yen",

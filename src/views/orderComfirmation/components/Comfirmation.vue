@@ -56,7 +56,7 @@ const useCreateOrderEffect = (shopId) => {
       if (result && result.errno === 0) {
         // 创建订单成功清空该店铺的购物车
         store.commit('clearCartProducts', { shopId: data.shopId })
-        changePopupShowType('success')
+        isCanceled ? changePopupShowType('cancel') : changePopupShowType('success')
         setTimeout(() => {
           changePopupShowType('none')
           // 两秒钟后跳转到首页
