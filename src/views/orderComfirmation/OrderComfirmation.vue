@@ -46,7 +46,7 @@ export default {
 }
 .detail {
   position: absolute;
-  top: 2rem;
+  top: 1.8rem;
   right: 0;
   bottom: .5rem;
   left: 0;

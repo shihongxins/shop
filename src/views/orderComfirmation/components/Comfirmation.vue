@@ -54,13 +54,18 @@ const useCreateOrderEffect = (shopId) => {
     try {
       const result = await post('/api/order', data, { headers: { 'content-type': 'application/json' } })
       if (result && result.errno === 0) {
-        // 创建订单成功清空该店铺的购物车
-        store.commit('clearCartProducts', { shopId: data.shopId })
+        // 提示结果
         isCanceled ? changePopupShowType('cancel') : changePopupShowType('success')
         setTimeout(() => {
+          // 两秒后关闭提示
           changePopupShowType('none')
-          // 两秒钟后跳转到首页
-          router.push({ name: 'OrderList' })
+          // 如果是确认创建订单且成功
+          if (!isCanceled) {
+            // 清空该店铺的购物车
+            store.commit('clearCartProducts', { shopId: data.shopId })
+            // 跳转到首页
+            router.push({ name: 'OrderList' })
+          }
         }, 2000)
       } else {
         showToast(`创建订单失败，${result.message}`)
